@@ -39,16 +39,15 @@ class Api:
 
         return json.loads(rv.read())
 
-    def getMarketData(self):
+    def market_data(self, v2=False):
+        if v2 is True:
+            return self._public_api_query("marketdatav2")
         return self._public_api_query("marketdata")
 
-    def getMarketDataV2(self):
-        return self._public_api_query("marketdatav2")
-
-    def getSingleMarketData(self, marketid=None):
+    def single_market_data(self, marketid=None):
         return self._public_api_query("singlemarketdata", marketid=marketid)
 
-    def getOrderbookData(self, marketid=None):
+    def order_book_data(self, marketid=None):
         if marketid is None:
             return self._public_api_query("orderdata")
         return self._public_api_query("singleorderdata", marketid=marketid)
@@ -60,9 +59,8 @@ class Api:
     # servertimezone  Current timezone for the server
     # serverdatetime  Current date/time on the server
     # openordercount  Count of open orders on your account
-    def getInfo(self):
+    def info(self):
         return self._api_query('getinfo')
-
 
     # Outputs: Array of Active Markets
     # marketid    Integer value representing a market
@@ -75,9 +73,8 @@ class Api:
     # last_trade  Last trade price for this market
     # high_trade  24 hour highest trade price in this market
     # low_trade   24 hour lowest trade price in this market
-    def getMarkets(self):
+    def markets(self):
         return self._api_query('getmarkets')
-
 
     # Outputs: Array of Deposits and Withdrawals on your account
     # currency    Name of currency account
@@ -87,9 +84,8 @@ class Api:
     # type    Type of activity. (Deposit / Withdrawal)
     # address Address to which the deposit posted or Withdrawal was sent
     # amount  Amount of transaction
-    def myTransactions(self):
+    def my_transactions(self):
         return self._api_query('mytransactions')
-
 
     # Inputs:
     # marketid    Market ID for which you are querying
@@ -99,9 +95,8 @@ class Api:
     # tradeprice  The price the trade occurred at
     # quantity    Quantity traded
     # total   Total value of trade (tradeprice * quantity)
-    def marketTrades(self, marketid):
+    def market_trades(self, marketid):
         return self._api_query('markettrades', request_data={'marketid': marketid})
-
 
     # Inputs:
     # marketid    Market ID for which you are querying
@@ -111,7 +106,7 @@ class Api:
     # buyprice    If a buy order, price the order is buying at
     # quantity    Quantity on order
     # total   Total value of order (price * quantity)
-    def marketOrders(self, marketid):
+    def market_orders(self, marketid):
         return self._api_query('marketorders', request_data={'marketid': marketid})
 
 
@@ -126,22 +121,11 @@ class Api:
     # tradeprice  The price the trade occurred at
     # quantity    Quantity traded
     # total   Total value of trade (tradeprice * quantity)
-    def myTrades(self, marketid, limit=200):
+    def my_trades(self, marketid=None, limit=200):
+        if marketid is None:
+            return self._api_query('allmytrades')
         return self._api_query('mytrades', request_data={'marketid': marketid,
                                                          'limit': limit})
-
-
-    # Outputs: Array your Trades for all Markets, in Date Decending Order
-    # tradeid An integer identifier for this trade
-    # tradetype   Type of trade (Buy/Sell)
-    # datetime    Server datetime trade occurred
-    # marketid    The market in which the trade occurred
-    # tradeprice  The price the trade occurred at
-    # quantity    Quantity traded
-    # total   Total value of trade (tradeprice * quantity)
-    def allMyTrades(self):
-        return self._api_query('allmytrades')
-
 
     # Inputs:
     # marketid    Market ID for which you are querying
@@ -153,9 +137,10 @@ class Api:
     # price   The price per unit for this order
     # quantity    Quantity for this order
     # total   Total value of order (price * quantity)
-    def myOrders(self, marketid):
+    def my_orders(self, marketid=None):
+        if marketid is None:
+            return self.api_query('allmyorders')
         return self._api_query('myorders', request_data={'marketid': marketid})
-
 
     # Inputs:
     # marketid    Market ID for which you are querying
@@ -177,19 +162,6 @@ class Api:
     def depth(self, marketid):
         return self._api_query('depth', request_data={'marketid': marketid})
 
-
-    # Outputs: Array of all open orders for your account.
-    # orderid Order ID for this order
-    # marketid    The Market ID this order was created for
-    # created Datetime the order was created
-    # ordertype   Type of order (Buy/Sell)
-    # price   The price per unit for this order
-    # quantity    Quantity for this order
-    # total   Total value of order (price * quantity)
-    def allMyOrders(self):
-        return self._api_query('allmyorders')
-
-
     # Inputs:
     # marketid    Market ID for which you are creating an order for
     # ordertype   Order type you are creating (Buy/Sell)
@@ -198,35 +170,32 @@ class Api:
     ##
     # Outputs:
     # orderid If successful, the Order ID for the order which was created
-    def createOrder(self, marketid, ordertype, quantity, price):
+    def create_order(self, marketid, ordertype, quantity, price):
         return self._api_query('createorder',
                                request_data={'marketid': marketid,
                                              'ordertype': ordertype,
                                              'quantity': quantity,
                                              'price': price})
 
-
     # Inputs:
     # orderid Order ID for which you would like to cancel
     ##
     # Outputs: If successful, it will return a success code.
-    def cancelOrder(self, orderid):
+    def cancel_order(self, orderid):
         return self.api_query('cancelorder', request_data={'orderid': orderid})
-
 
     # Inputs:
     # marketid    Market ID for which you would like to cancel all open orders
     ##
     # Outputs:
     # return  Array for return information on each order cancelled
-    def cancelMarketOrders(self, marketid):
+    def cancel_all_market_orders(self, marketid):
         return self.api_query('cancelmarketorders',
                               request_data={'marketid': marketid})
 
-
     # Outputs:
     # return  Array for return information on each order cancelled
-    def cancelAllOrders(self):
+    def cancel_all_orders(self):
         return self.api_query('cancelallorders')
 
     # Inputs:
@@ -237,12 +206,11 @@ class Api:
     # Outputs:
     # fee The that would be charged for provided inputs
     # net The net total with fees
-    def calculateFees(self, ordertype, quantity, price):
+    def calculate_fees(self, ordertype, quantity, price):
         return self.api_query('calculatefees',
                               request_data={'ordertype': ordertype,
                                             'quantity': quantity,
                                             'price': price})
-
 
     # Inputs: (either currencyid OR currencycode required - you do not have to supply both)
     # currencyid  Currency ID for the coin you want to generate a new address for (ie. 3 = BitCoin)
@@ -250,8 +218,7 @@ class Api:
     ##
     # Outputs:
     # address The new generated address
-    def generateNewAddress(self, currencyid=None, currencycode=None):
-
+    def generate_new_address(self, currencyid=None, currencycode=None):
         if(currencyid != None):
             req = {'currencyid': currencyid}
         elif(currencycode != None):
