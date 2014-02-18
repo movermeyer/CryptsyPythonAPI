@@ -6,8 +6,8 @@ setup(
     version='0.1',
     license='GNU GPL2',
     url='https://github.com/ScriptProdigy/CryptsyPythonAPI',
-    author='Matt Joseph Smith',
-    author_email='matt.joseph.smith@gmail.com',
+    author='Jaap Broekhuizen <jaapz.b@gmail.com>, '
+           'Matt Joseph Smith <matt.joseph.smith@gmail.com>',
     description='A python wrapper for the Cryptsy API.',
     py_modules=['Cryptsy'],
     zip_safe=False,
