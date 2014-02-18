@@ -3,6 +3,9 @@ CryptsyPythonAPI
 
 API for Cryptsy.com Exchange utilizing completely built-in functions and utilities of Python 2.7.
 
+Note: the next version of this API wrapper will introduce A LOT of API changes
+so be warned, here be dragons.
+
 Author's Note
 -------------
 This API wrapper is a fork of [ScriptProdigy's CryptsyPythonAPI](https://github.com/ScriptProdigy/CryptsyPythonAPI).
