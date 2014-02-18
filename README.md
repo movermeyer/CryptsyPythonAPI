@@ -14,10 +14,10 @@ Example Usage
 -------------
 Create buy order for dgc, market id 26, then cancels all orders you have for dgc
 ```python
-from Cryptsy import API
-exchange = API('KEY HERE', 'SECRET HERE')
-print(exchange.create_order(26, "Buy", 100, 0.00000001))       # Buy 100 dgc at .00000001 each
-print(exchange.cancel_all_market_orders(26))                   # Cancels all orders in market 26, dgc
+from Cryptsy import Api
+exchange = Api('KEY HERE', 'SECRET HERE')
+print(exchange.buy(26, 100, 0.00000001))       # Buy 100 dgc at .00000001 each
+print(exchange.cancel_all_market_orders(26))   # Cancels all orders in market 26, dgc
 ```
 
 Running the tests
@@ -45,7 +45,6 @@ Support development by tipping me a beer (because programming with beer is
 inherently better than programming without)!
 
 [![Support via Gittip](https://rawgithub.com/chris---/Donation-Badges/master/gittip.jpeg)](https://www.gittip.com/jaapz)
-
 
 License
 -------

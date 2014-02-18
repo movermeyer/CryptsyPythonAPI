@@ -42,3 +42,27 @@ class TestPublicApiCall:
                                                        api):
         rv = api._public_api_query('testmethod', marketid=10)
         assert rv['url'] == 'http://pubapi.cryptsy.com/api.php?method=testmethod&marketid=10'
+
+
+@pytest.fixture
+def mock_create_order(monkeypatch):
+    """ Mock the create order so we can check if the correct ordertype is
+    used. """
+    def _mock_create_order(self, marketid, ordertype, quantity, price):
+        return ordertype
+
+    monkeypatch.setattr(Api, '_create_order', _mock_create_order)
+
+
+def test_buy(mock_create_order, api):
+    """ The buy method should call the _create_order method with the ordertyp
+    as 'Buy'. """
+    rv = api.buy(26, 10, 0.0000001)
+    assert rv == 'Buy'
+
+
+def test_sell(mock_create_order, api):
+    """ The sell method should call the _create_order method with the ordertyp
+    as 'Sell'. """
+    rv = api.sell(26, 10, 0.0000001)
+    assert rv == 'Sell'

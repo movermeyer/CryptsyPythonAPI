@@ -170,12 +170,30 @@ class Api:
     ##
     # Outputs:
     # orderid If successful, the Order ID for the order which was created
-    def create_order(self, marketid, ordertype, quantity, price):
+    def _create_order(self, marketid, ordertype, quantity, price):
+        """ Creates an order for buying or selling coins.
+
+        It is preferable to buy and sell coins using the Api.buy and Api.sell
+        methods.
+
+        :param marketid: Market to buy from.
+        :param ordertype: Either Buy or Sell.
+        :param quantity: Number of coins to buy.
+        :param price: At this price.
+        """
         return self._api_query('createorder',
                                request_data={'marketid': marketid,
                                              'ordertype': ordertype,
                                              'quantity': quantity,
                                              'price': price})
+
+    def buy(self, marketid, quantity, price):
+        """ Buy a specified number of coins on the given market. """
+        return self._create_order(marketid, 'Buy', quantity, price)
+
+    def sell(self, marketid, quantity, price):
+        """ Sell a specified number of coins on the given market. """
+        return self._create_order(marketid, 'Sell', quantity, price)
 
     # Inputs:
     # orderid Order ID for which you would like to cancel
