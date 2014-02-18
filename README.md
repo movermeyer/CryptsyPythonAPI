@@ -17,6 +17,19 @@ print(Exchange.createOrder(26, "Buy", 100, 0.00000001))       # Buy 100 dgc at .
 print(Exchange.cancelMarketOrders(26))                        # Cancels all orders in market 26, dgc
 ```
 
+Running the tests
+-----------------
+If you want to run the tests, first create a virtualenv and install all
+requirements.
+
+    virtualenv .env
+    . .env/bin/activate
+    pip install -r requirements.txt
+
+Then, using pytest, run the tests:
+
+    py.test test_cryptsy.py
+
 License
 -------
 This piece of software is licensed under the GPL2 license, see `license`.
