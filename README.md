@@ -30,6 +30,19 @@ Then, using pytest, run the tests:
 
     py.test test_cryptsy.py
 
+Development
+----------
+Development is done in the obviously named develop branch. If you want to
+contribute, please do your commits in that branch so merging them isn't a
+pain.
+
+Donate
+------
+Support development by tipping me a beer (because programming with beer is
+inherently better than programming without)!
+[![Support via Gittip](https://rawgithub.com/chris---/Donation-Badges/master/gittip.jpeg)](https://www.gittip.com/jaapz)
+
+
 License
 -------
 This piece of software is licensed under the GPL2 license, see `license`.
