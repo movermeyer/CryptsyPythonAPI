@@ -19,4 +19,4 @@ print(Exchange.cancelMarketOrders(26))                        # Cancels all orde
 
 License
 -------
-This piece of software is licensed under the GPL2 license, see license.txt.
+This piece of software is licensed under the GPL2 license, see `license`.
