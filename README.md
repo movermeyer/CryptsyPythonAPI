@@ -40,6 +40,7 @@ Donate
 ------
 Support development by tipping me a beer (because programming with beer is
 inherently better than programming without)!
+
 [![Support via Gittip](https://rawgithub.com/chris---/Donation-Badges/master/gittip.jpeg)](https://www.gittip.com/jaapz)
 
 
