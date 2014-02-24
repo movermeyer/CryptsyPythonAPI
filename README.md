@@ -20,6 +20,14 @@ print(exchange.buy(26, 100, 0.00000001))       # Buy 100 dgc at .00000001 each
 print(exchange.cancel_all_market_orders(26))   # Cancels all orders in market 26, dgc
 ```
 
+Changelog
+---------
+Version 0.2:
+
+ * moved from camelCase names to python_style names
+ * added new methods: `buy`, `sell`, `my_transfers`, `wallet_status`, `make_withdrawal`
+ * started implementing tests
+
 Running the tests
 -----------------
 If you want to run the tests, first create a virtualenv and install all
