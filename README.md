@@ -30,6 +30,14 @@ Version 0.2:
  * nonce is now in milliseconds instead of seconds, to support multiple calls
    per second.
 
+Todo
+----
+Some things that I intend to add in future versions:
+
+ * MOAR TESTS
+ * sphinx reference generation
+ * error handling
+
 Running the tests
 -----------------
 If you want to run the tests, first create a virtualenv and install all

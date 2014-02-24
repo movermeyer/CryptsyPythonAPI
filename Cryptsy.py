@@ -308,8 +308,6 @@ class Api:
     def make_withdrawal(self, address, amount):
         """ Make a withdrawal to a trusted withdrawal address.
 
-        TODO: throw an exception if the request returned an error.
-
         :param address: Pre-approved address for which you are withdrawing to.
         :param amount: Amount you are withdrawing, maximum of 8 decimals.
         """
