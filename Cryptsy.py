@@ -200,7 +200,7 @@ class Api:
     ##
     # Outputs: If successful, it will return a success code.
     def cancel_order(self, orderid):
-        return self.api_query('cancelorder', request_data={'orderid': orderid})
+        return self._api_query('cancelorder', request_data={'orderid': orderid})
 
     # Inputs:
     # marketid    Market ID for which you would like to cancel all open orders
@@ -208,13 +208,13 @@ class Api:
     # Outputs:
     # return  Array for return information on each order cancelled
     def cancel_all_market_orders(self, marketid):
-        return self.api_query('cancelmarketorders',
+        return self._api_query('cancelmarketorders',
                               request_data={'marketid': marketid})
 
     # Outputs:
     # return  Array for return information on each order cancelled
     def cancel_all_orders(self):
-        return self.api_query('cancelallorders')
+        return self._api_query('cancelallorders')
 
     # Inputs:
     # ordertype   Order type you are calculating for (Buy/Sell)
@@ -225,10 +225,10 @@ class Api:
     # fee The that would be charged for provided inputs
     # net The net total with fees
     def calculate_fees(self, ordertype, quantity, price):
-        return self.api_query('calculatefees',
-                              request_data={'ordertype': ordertype,
-                                            'quantity': quantity,
-                                            'price': price})
+        return self._api_query('calculatefees',
+                               request_data={'ordertype': ordertype,
+                                             'quantity': quantity,
+                                             'price': price})
 
     # Inputs: (either currencyid OR currencycode required - you do not have to supply both)
     # currencyid  Currency ID for the coin you want to generate a new address for (ie. 3 = BitCoin)
@@ -237,11 +237,61 @@ class Api:
     # Outputs:
     # address The new generated address
     def generate_new_address(self, currencyid=None, currencycode=None):
-        if(currencyid != None):
+        if currencyid is not None:
             req = {'currencyid': currencyid}
-        elif(currencycode != None):
+        elif currencycode is not None:
             req = {'currencycode': currencycode}
         else:
             return None
 
         return self._api_query('generatenewaddress', request_data=req)
+
+    def my_transfers(self):
+        """ Array of all transfers into/out of your account sorted by requested
+        datetime descending.
+
+        Resultset contains:
+
+        currency	Currency being transfered
+        request_timestamp	Datetime the transfer was requested/initiated
+        processed	Indicator if transfer has been processed (1) or not (0)
+        processed_timestamp	Datetime of processed transfer
+        from	Username sending transfer
+        to	Username receiving transfer
+        quantity	Quantity being transfered
+        direction	Indicates if transfer is incoming or outgoing (in/out)
+        """
+        self._api_query('mytransfers');
+
+    def wallet_status(self):
+        """ Array of Wallet Statuses
+
+        Resultset contains:
+
+        currencyid	Integer value representing a currency
+        name	Name for this currency, for example: Bitcoin
+        code	Currency code, for example: BTC
+        blockcount	Blockcount of currency hot wallet as of lastupdate time
+        difficulty	Difficulty of currency hot wallet as of lastupdate time
+        version	Version of currency hotwallet as of lastupdate time
+        peercount	Connected peers of currency hot wallet as of lastupdate time
+        hashrate	Network hashrate of currency hot wallet as of lastupdate time
+        gitrepo	Git Repo URL for this currency
+        withdrawalfee	Fee charged for withdrawals of this currency
+        lastupdate	Datetime (EST) the hot wallet information was last updated
+        """
+        self._api_query('getwalletstatus')
+
+    def make_withdrawal(self, address, amount):
+        """ Make a withdrawal to a trusted withdrawal address.
+
+        TODO: throw an exception if the request returned an error.
+
+        :param address: Pre-approved address for which you are withdrawing to.
+        :param amount: Amount you are withdrawing, maximum of 8 decimals.
+        """
+        self._api_query('makewithdrawal',
+                        request_data={
+                            'address': address,
+                            'amount': amount
+                        })
