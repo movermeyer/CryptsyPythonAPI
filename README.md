@@ -27,6 +27,8 @@ Version 0.2:
  * moved from camelCase names to python_style names
  * added new methods: `buy`, `sell`, `my_transfers`, `wallet_status`, `make_withdrawal`
  * started implementing tests
+ * nonce is now in milliseconds instead of seconds, to support multiple calls
+   per second.
 
 Running the tests
 -----------------

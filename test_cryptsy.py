@@ -1,6 +1,8 @@
 import pytest
 import urllib2
 
+from mock import Mock
+
 from Cryptsy import Api
 
 
@@ -45,24 +47,68 @@ class TestPublicApiCall:
 
 
 @pytest.fixture
-def mock_create_order(monkeypatch):
+def mock_create_order(api):
     """ Mock the create order so we can check if the correct ordertype is
     used. """
-    def _mock_create_order(self, marketid, ordertype, quantity, price):
-        return ordertype
-
-    monkeypatch.setattr(Api, '_create_order', _mock_create_order)
+    api._create_order = Mock()
 
 
 def test_buy(mock_create_order, api):
     """ The buy method should call the _create_order method with the ordertyp
     as 'Buy'. """
-    rv = api.buy(26, 10, 0.0000001)
-    assert rv == 'Buy'
+    api.buy(26, 10, 0.0000001)
+    api._create_order.assert_called_with(26, 'Buy', 10, 0.0000001)
 
 
 def test_sell(mock_create_order, api):
     """ The sell method should call the _create_order method with the ordertyp
     as 'Sell'. """
     rv = api.sell(26, 10, 0.0000001)
-    assert rv == 'Sell'
+    api._create_order.assert_called_with(26, 'Sell', 10, 0.0000001)
+
+
+def test_generate_new_address_without_parameters(api):
+    """ generate_new_address should raise a ValueError when no parameters are
+    provided. """
+    with pytest.raises(ValueError):
+        api.generate_new_address()
+
+
+@pytest.fixture
+def api_query_mock(api):
+    api._api_query = Mock()
+    return api._api_query
+
+
+@pytest.fixture
+def public_api_query_mock(api):
+    api._public_api_query = Mock()
+    return api._public_api_query
+
+
+def test_generate_new_address_currencycode(api, api_query_mock):
+    """ Should add currencycode as request data if provided. """
+    api.generate_new_address(currencycode=10)
+    api_query_mock.assert_called_with('generatenewaddress', request_data={
+        'currencycode': 10
+    })
+
+
+def test_generate_new_address_currencyid(api, api_query_mock):
+    """ Should add currencyid as request data if provided. """
+    api.generate_new_address(currencyid=10)
+    api_query_mock.assert_called_with('generatenewaddress', request_data={
+        'currencyid': 10
+    })
+
+
+def test_market_data_old(api, public_api_query_mock):
+    """ Should use the old marketdata method if v2 is not set to True. """
+    api.market_data()
+    public_api_query_mock.assert_called_with('marketdata')
+
+
+def test_market_data_v2(api, public_api_query_mock):
+    """ Should use the old marketdata method if v2 is not set to True. """
+    api.market_data(v2=True)
+    public_api_query_mock.assert_called_with('marketdatav2')

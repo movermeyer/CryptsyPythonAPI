@@ -24,7 +24,7 @@ class Api:
     def _api_query(self, method, request_data=None):
         """ Call to the "private" api and return the loaded json. """
         request_data['method'] = method
-        request_data['nonce'] = int(time.time())
+        request_data['nonce'] = int(round(time.time() * 1000))
         post_data = urllib.urlencode(request_data)
 
         signed_data = hmac.new(self.SECRET, post_data, hashlib.sha512)\
