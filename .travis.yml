@@ -1,0 +1,9 @@
+branches:
+  except:
+    - gh-pages
+
+language: python
+
+install: "pip install -r requirements.txt"
+
+script: "py.test test_cryptsy.py -v"
