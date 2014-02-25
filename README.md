@@ -39,6 +39,8 @@ Some things that I intend to add in future versions:
  * MOAR TESTS
  * sphinx reference generation
  * error handling
+ * add some unofficial api endpoints because the official ones may suck
+ * add travis ci builds
 
 Running the tests
 -----------------
