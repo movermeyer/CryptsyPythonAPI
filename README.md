@@ -22,6 +22,24 @@ print(exchange.buy(26, 100, 0.00000001))       # Buy 100 dgc at .00000001 each
 print(exchange.cancel_all_market_orders(26))   # Cancels all orders in market 26, dgc
 ```
 
+Changelog
+---------
+Version 0.2:
+
+ * moved from camelCase names to python_style names
+ * added new methods: `buy`, `sell`, `my_transfers`, `wallet_status`, `make_withdrawal`
+ * started implementing tests
+ * nonce is now in milliseconds instead of seconds, to support multiple calls
+   per second.
+
+Todo
+----
+Some things that I intend to add in future versions:
+
+ * MOAR TESTS
+ * sphinx reference generation
+ * error handling
+
 Running the tests
 -----------------
 If you want to run the tests, first create a virtualenv and install all
