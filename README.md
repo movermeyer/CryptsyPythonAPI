@@ -6,6 +6,8 @@ API for Cryptsy.com Exchange utilizing completely built-in functions and utiliti
 Note: the next version of this API wrapper will introduce A LOT of API changes
 so be warned, here be dragons.
 
+[![Dependency Status](https://gemnasium.com/jaapz/CryptsyPythonAPI.png)](https://gemnasium.com/jaapz/CryptsyPythonAPI)
+
 Author's Note
 -------------
 This API wrapper is a fork of [ScriptProdigy's CryptsyPythonAPI](https://github.com/ScriptProdigy/CryptsyPythonAPI).
