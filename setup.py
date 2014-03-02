@@ -3,7 +3,7 @@ from setuptools import setup
 
 setup(
     name='Cryptsy',
-    version='0.2',
+    version='0.2.1',
     license='GNU GPL2',
     url='https://github.com/jaapz/CryptsyPythonAPI',
     author='Jaap Broekhuizen <jaapz.b@gmail.com>, '

@@ -6,7 +6,9 @@ API for Cryptsy.com Exchange utilizing completely built-in functions and utiliti
 Note: the next version of this API wrapper will introduce A LOT of API changes
 so be warned, here be dragons.
 
+[![Dependency Status](https://gemnasium.com/jaapz/CryptsyPythonAPI.png)](https://gemnasium.com/jaapz/CryptsyPythonAPI)
 [![Build Status](https://api.travis-ci.org/jaapz/CryptsyPythonAPI.png)](https://travis-ci.org/jaapz/CryptsyPythonAPI)
+[![PyPI Version](https://pypip.in/v/Cryptsy/badge.png)](https://pypi.python.org/pypi/Cryptsy)
 
 Author's Note
 -------------
@@ -39,6 +41,8 @@ Some things that I intend to add in future versions:
  * MOAR TESTS
  * sphinx reference generation
  * error handling
+ * add some unofficial api endpoints because the official ones may suck
+ * add travis ci builds
 
 Running the tests
 -----------------
