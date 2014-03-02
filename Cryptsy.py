@@ -21,7 +21,7 @@ class Api:
         rv = urllib2.urlopen(urllib2.Request(request_url))
         return json.loads(rv.read())
 
-    def _api_query(self, method, request_data=None):
+    def _api_query(self, method, request_data={}):
         """ Call to the "private" api and return the loaded json. """
         request_data['method'] = method
         request_data['nonce'] = int(round(time.time() * 1000))
@@ -180,7 +180,7 @@ class Api:
         :param marketid: If provided, orders will be filtered by this marketid.
         """
         if marketid is None:
-            return self.api_query('allmyorders')
+            return self._api_query('allmyorders')
         return self._api_query('myorders', request_data={'marketid': marketid})
 
     def depth(self, marketid):

@@ -112,3 +112,146 @@ def test_market_data_v2(api, public_api_query_mock):
     """ Should use the old marketdata method if v2 is not set to True. """
     api.market_data(v2=True)
     public_api_query_mock.assert_called_with('marketdatav2')
+
+
+def test_order_book_data_no_marketid(api, public_api_query_mock):
+    """ Should call orderdata if no marketid is provided. """
+    api.order_book_data()
+    public_api_query_mock.assert_called_with('orderdata')
+
+
+def test_order_book_data_with_marketid(api, public_api_query_mock):
+    """ Should call singleorderdata if marketid is provided. """
+    api.order_book_data(marketid=10)
+    public_api_query_mock.assert_called_with('singleorderdata', marketid=10)
+
+
+def test_info(api, api_query_mock):
+    """ Should call getinfo. """
+    api.info()
+    api_query_mock.assert_called_with('getinfo')
+
+
+def test_markets(api, api_query_mock):
+    """ Should call getmarkets. """
+    api.markets()
+    api_query_mock.assert_called_with('getmarkets')
+
+
+def test_my_transactions(api, api_query_mock):
+    """ Should call mytransactions. """
+    api.my_transactions()
+    api_query_mock.assert_called_with('mytransactions')
+
+
+def test_market_trades(api, api_query_mock):
+    """ Should call markettrades with the provided marketid. """
+    api.market_trades(marketid=10)
+    api_query_mock.assert_called_with('markettrades',
+                                      request_data={'marketid': 10})
+
+
+def test_market_orders(api, api_query_mock):
+    """ Should call mytransactions. """
+    api.market_orders(marketid=10)
+    api_query_mock.assert_called_with('marketorders',
+                                      request_data={'marketid': 10})
+
+
+def test_my_trades_no_marketid(api, api_query_mock):
+    """ If no marketid is provided, it should call allmytrades. """
+    api.my_trades()
+    api_query_mock.assert_called_with('allmytrades')
+
+
+def test_my_trades_with_marketid(api, api_query_mock):
+    """ If a marketid is provided, it should call mytrades. """
+    api.my_trades(marketid=10)
+    api_query_mock.assert_called_with('mytrades',
+                                      request_data={
+                                            'marketid': 10,
+                                            'limit': 200
+                                      })
+
+
+def test_my_trades_with_marketid_and_limit(api, api_query_mock):
+    """ If limit is provided, use it.. """
+    api.my_trades(marketid=10, limit=10)
+    api_query_mock.assert_called_with('mytrades',
+                                      request_data={
+                                            'marketid': 10,
+                                            'limit': 10
+                                      })
+
+
+def test_my_orders_no_marketid(api, api_query_mock):
+    """ If no marketid is provided, it should call allmyorders. """
+    api.my_orders()
+    api_query_mock.assert_called_with('allmyorders')
+
+
+def test_my_orders_with_marketid(api, api_query_mock):
+    """ If a marketid is provided, it should call myorders. """
+    api.my_orders(marketid=10)
+    api_query_mock.assert_called_with('myorders',
+                                      request_data={
+                                        'marketid': 10,
+                                      })
+
+
+def test_depth(api, api_query_mock):
+    """ Should call depth with given marketid. """
+    api.depth(marketid=10)
+    api_query_mock.assert_called_with('depth', request_data={'marketid': 10})
+
+
+def test_cancel_order(api, api_query_mock):
+    """ Should call cancelorders with given orderid. """
+    api.cancel_order(orderid=10)
+    api_query_mock.assert_called_with('cancelorder',
+                                      request_data={'orderid': 10})
+
+
+def test_cancel_all_market_orders(api, api_query_mock):
+    """ Should call cancelmarketorders with given marketid. """
+    api.cancel_all_market_orders(marketid=10)
+    api_query_mock.assert_called_with('cancelmarketorders',
+                                      request_data={'marketid': 10})
+
+
+def test_cancel_all_orders(api, api_query_mock):
+    """ Should call cancelallorders. """
+    api.cancel_all_orders()
+    api_query_mock.assert_called_with('cancelallorders')
+
+
+def test_calculate_fees(api, api_query_mock):
+    """ Should call calculatefees with the correct parameters. """
+    api.calculate_fees('Buy', 200, 10)
+    api_query_mock.assert_called_with('calculatefees',
+                                      request_data={
+                                          'ordertype': 'Buy',
+                                          'quantity': 200,
+                                          'price': 10
+                                      })
+
+def test_my_transfers(api, api_query_mock):
+    """ Should call mytransfers. """
+    api.my_transfers()
+    api_query_mock.assert_called_with('mytransfers')
+
+
+def test_wallet_status(api, api_query_mock):
+    """ Should call getwalletstatus. """
+    api.wallet_status()
+    api_query_mock.assert_called_with('getwalletstatus')
+
+
+def test_make_withdrawal(api, api_query_mock):
+    """ Should call makewithdrawal with the given parameters. """
+    api.make_withdrawal('address', 100)
+    api_query_mock.assert_called_with('makewithdrawal',
+                                      request_data={
+                                          'address': 'address',
+                                          'amount': 100
+                                      })
