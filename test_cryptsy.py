@@ -43,6 +43,18 @@ def test_marketid_should_be_added_as_get_parameter(mock_urlopen, api):
     assert rv['url'] == 'http://pubapi.cryptsy.com/api.php?method=testmethod&marketid=10'
 
 
+def test_create_order(api, api_query_mock):
+    """ Api._create_order should pass the given values onto the api. """
+    api._create_order(10, 'Buy', 100, 0.10)
+    api_query_mock.assert_called_with('createorder',
+                                      request_data={
+                                          'marketid': 10,
+                                          'ordertype': 'Buy',
+                                          'quantity': 100,
+                                          'price': 0.10
+                                      })
+
+
 @pytest.fixture
 def mock_create_order(api):
     """ Mock the create order so we can check if the correct ordertype is
