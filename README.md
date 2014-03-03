@@ -9,6 +9,7 @@ so be warned, here be dragons.
 [![Dependency Status](https://gemnasium.com/jaapz/CryptsyPythonAPI.png)](https://gemnasium.com/jaapz/CryptsyPythonAPI)
 [![Build Status](https://api.travis-ci.org/jaapz/CryptsyPythonAPI.png)](https://travis-ci.org/jaapz/CryptsyPythonAPI)
 [![PyPI Version](https://pypip.in/v/Cryptsy/badge.png)](https://pypi.python.org/pypi/Cryptsy)
+[![Coverage Status](https://coveralls.io/repos/jaapz/CryptsyPythonAPI/badge.png)](https://coveralls.io/r/jaapz/CryptsyPythonAPI)
 
 Author's Note
 -------------
@@ -56,6 +57,10 @@ requirements.
 Then, using pytest, run the tests:
 
     py.test test_cryptsy.py
+
+Or with coverage reports:
+
+    py.test --cov Cryptsy.py test_cryptsy.py
 
 Development
 ----------

@@ -33,17 +33,14 @@ def test_cryptsy_init():
     assert instance.SECRET == 'Secret'
 
 
-class TestPublicApiCall:
-    """ Some requests are done to the "public" API of cryptsy. """
+def test_method_should_be_added_in_the_url(mock_urlopen, api):
+    rv = api._public_api_query('testmethod')
+    assert rv['url'] == 'http://pubapi.cryptsy.com/api.php?method=testmethod'
 
-    def test_method_should_be_added_in_the_url(self, mock_urlopen, api):
-        rv = api._public_api_query('testmethod')
-        assert rv['url'] == 'http://pubapi.cryptsy.com/api.php?method=testmethod'
 
-    def test_marketid_should_be_added_as_get_parameter(self, mock_urlopen,
-                                                       api):
-        rv = api._public_api_query('testmethod', marketid=10)
-        assert rv['url'] == 'http://pubapi.cryptsy.com/api.php?method=testmethod&marketid=10'
+def test_marketid_should_be_added_as_get_parameter(mock_urlopen, api):
+    rv = api._public_api_query('testmethod', marketid=10)
+    assert rv['url'] == 'http://pubapi.cryptsy.com/api.php?method=testmethod&marketid=10'
 
 
 @pytest.fixture
