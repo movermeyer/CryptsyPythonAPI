@@ -9,7 +9,7 @@ so be warned, here be dragons.
 [![Dependency Status](https://gemnasium.com/jaapz/CryptsyPythonAPI.png)](https://gemnasium.com/jaapz/CryptsyPythonAPI)
 [![Build Status](https://api.travis-ci.org/jaapz/CryptsyPythonAPI.png)](https://travis-ci.org/jaapz/CryptsyPythonAPI)
 [![PyPI Version](https://pypip.in/v/Cryptsy/badge.png)](https://pypi.python.org/pypi/Cryptsy)
-[![Coverage Status](https://coveralls.io/repos/jaapz/CryptsyPythonAPI/badge.png)](https://coveralls.io/r/jaapz/CryptsyPythonAPI)
+[![Coverage Status](https://coveralls.io/repos/jaapz/CryptsyPythonAPI/badge.png?branch=develop)](https://coveralls.io/r/jaapz/CryptsyPythonAPI?branch=develop)
 
 Author's Note
 -------------
