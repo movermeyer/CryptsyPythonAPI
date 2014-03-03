@@ -40,7 +40,7 @@ class Api:
 
         return json.loads(rv.read())
 
-    def market_data(self, v2=False):
+    def market_data(self, marketid=None, v2=False):
         """ Get market data for all markets.
 
         Defaults to the old version of getmarketdata. Set v2 to True to use
@@ -48,14 +48,9 @@ class Api:
         """
         if v2 is True:
             return self._public_api_query("marketdatav2")
+        if marketid is not None:
+            return self._public_api_query("singlemarketdata", marketid=marketid)
         return self._public_api_query("marketdata")
-
-    def single_market_data(self, marketid=None):
-        """ Get general market data for the given market.
-
-        :param marketid: Market ID you are querying for.
-        """
-        return self._public_api_query("singlemarketdata", marketid=marketid)
 
     def order_book_data(self, marketid=None):
         """ Get orderbook data for all markets, or for a single one.

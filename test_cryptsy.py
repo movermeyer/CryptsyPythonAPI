@@ -99,6 +99,12 @@ def test_generate_new_address_currencyid(api, api_query_mock):
     })
 
 
+def test_single_market_data(api, public_api_query_mock):
+    """ Should call singlemarketdata if marketid is provided. """
+    api.market_data(marketid=10)
+    public_api_query_mock.assert_called_with('singlemarketdata', marketid=10)
+
+
 def test_market_data_old(api, public_api_query_mock):
     """ Should use the old marketdata method if v2 is not set to True. """
     api.market_data()
